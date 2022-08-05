@@ -1,6 +1,7 @@
 ## Simple Parking System
 
 Sistem Parkir ini memiliki 2 role: admin dan petugas-parkir.
+
 Petugas Parkir :
 - Saat mobil masuk, petugas parkir menginput nomor polisi. 
 - Jika mobil tidak pernah masuk atau sudah keluar, generate kode unik, catat nomor polisi dan waktu masuk.
