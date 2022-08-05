@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'Book Finder',
+    'title' => 'Parking System',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -45,12 +45,12 @@ return [
     |
     */
 
-    'logo' => '<b>Book</b>Finder',
+    'logo' => '<b>Parking</b> System',
     'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
-    'logo_img_alt' => 'Book Finder',
+    'logo_img_alt' => 'Parking System',
 
     /*
     |--------------------------------------------------------------------------
@@ -273,15 +273,31 @@ return [
                 ],
             ],
         ],
-        ['header' => 'main_navigation'],
         [
-            
-            'text' => 'masterbooks',
-            'url'  => 'book',
+            'text' => 'reports',
+            'url'  => 'reports',
             'shift'=> 'ml-3',
             'icon' => 'fas fa-fw fa-book',
-            'can'  => 'read book',
-            'active' => ['book', 'book*', 'regex:@^book/[0-9]+$@'],
+            'classes'  => 'view-admin-menu',
+            'can'  => 'read transaction',
+            'active' => ['reports', 'reports*', 'regex:@^reports/[0-9]+$@'],
+        ],
+        ['header' => 'OPERATOR'],
+        [
+            'text' => 'check-in',
+            'url'  => 'check-in',
+            'shift'=> 'ml-3',
+            'icon' => 'fas fa-fw fa-sign-in-alt',
+            'can'  => 'create transaction',
+            'active' => ['check-in', 'check-in*', 'regex:@^check-in/[0-9]+$@'],
+        ],
+        [
+            'text' => 'check-out',
+            'url'  => 'check-out',
+            'shift'=> 'ml-3',
+            'icon' => 'fas fa-fw fa-sign-out-alt',
+            'can'  => 'create transaction',
+            'active' => ['check-out', 'check-out*', 'regex:@^check-out/[0-9]+$@'],
         ],
     ],
 

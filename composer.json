@@ -17,6 +17,7 @@
         "laravel/framework": "^7.29",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^2.5",
+        "maatwebsite/excel": "^3.1",
         "spatie/laravel-activitylog": "^3.16",
         "spatie/laravel-permission": "^3.18",
         "squareboat/sneaker": "dev-master",

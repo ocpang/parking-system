@@ -11,7 +11,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
-                    <p class="mb-0">Welcome to this beautiful admin panel</p>
+                    <p class="mb-0">Welcome to Parking System</p>
                 </div>
             </div>
         </div>

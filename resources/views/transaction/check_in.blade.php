@@ -1,7 +1,7 @@
 @extends('adminlte::page')
 
 @section('title')
-    Master Books
+    Check In
 @endsection
 
 @section('content')
@@ -9,12 +9,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">Master Books</h1>
+                        <h1 class="m-0 text-dark">Check In</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                            <li class="breadcrumb-item active">Master Books</li>
+                            <li class="breadcrumb-item active">Check In</li>
                         </ol>
                     </div>
                 </div>
@@ -35,10 +35,10 @@
                             <div class="col-md-12">
                                 <div class="card">
                                     <div class="card-header row">
-                                        <div class="col-md-6">Create Master Book</div>
+                                        <div class="col-md-6">Create Check In</div>
                                     </div>
                                     <div class="card-body">
-                                        <form id="form_data" role="form" action="{{ route('book.save') }}" method="POST">
+                                        <form id="form_data" role="form" action="{{ route('check-in.save') }}" method="POST">
                                             @csrf
                                             @method('POST')
                                             <div class="card">
@@ -62,29 +62,9 @@
                                                                     @endif
                                                                     <!--begin::Group-->
                                                                     <div class="form-group row fv-plugins-icon-container">
-                                                                        <label class="col-xl-2 col-lg-2 col-form-label">Title*</label>
-                                                                        <div class="col-lg-10 col-xl-10 title_field">
-                                                                            <input class="form-control form-control-solid form-control-lg" name="title" type="text" maxlength="100" value="">
-                                                                            <div class="fv-plugins-message-container text-danger"></div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <!--end::Group-->
-
-                                                                    <!--begin::Group-->
-                                                                    <div class="form-group row fv-plugins-icon-container">
-                                                                        <label class="col-xl-2 col-lg-2 col-form-label">Author*</label>
-                                                                        <div class="col-lg-10 col-xl-10 author_field">
-                                                                            <input class="form-control form-control-solid form-control-lg" name="author" type="text" maxlength="100" value="">
-                                                                            <div class="fv-plugins-message-container text-danger"></div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <!--end::Group-->
-
-                                                                    <!--begin::Group-->
-                                                                    <div class="form-group row fv-plugins-icon-container">
-                                                                        <label class="col-xl-2 col-lg-2 col-form-label">Genre*</label>
-                                                                        <div class="col-lg-10 col-xl-10 genre_field">
-                                                                            <input class="form-control form-control-solid form-control-lg" name="genre" type="text" maxlength="100" value="">
+                                                                        <label class="col-xl-2 col-lg-2 col-form-label">Vehicle No*</label>
+                                                                        <div class="col-lg-10 col-xl-10 vehicle_no_field">
+                                                                            <input class="form-control form-control-solid form-control-lg" name="vehicle_no" type="text" maxlength="15" value="">
                                                                             <div class="fv-plugins-message-container text-danger"></div>
                                                                         </div>
                                                                     </div>
@@ -96,7 +76,7 @@
                                                 </div>
                                                 <div class="card-footer">
                                                     <div class="row">
-                                                        <div class="col-lg-9">
+                                                        <div class="col-lg-12 text-center">
                                                             <button type="button" onclick="send(this);" class="btn btn-success font-weight-bolder">
                                                                 Save
                                                             </button>
@@ -106,25 +86,6 @@
                                                 </div>
                                             </div>
                                         </form>
-
-                                        <div class="mt-2">&nbsp;</div>
-                                        <hr>
-                                        <div class="mt-2">&nbsp;</div>
-
-                                        <div class="table-responsive">
-                                            <table class="table table-hover table-bordered table-striped" id="book-table">
-                                                <thead>
-                                                    <tr>
-                                                        <th>No</th>
-                                                        <th>Title</th>
-                                                        <th>Author</th>
-                                                        <th>Genre</th>
-                                                        <th>Vote Count</th>
-                                                        <th>Action</th>
-                                                    </tr>
-                                                </thead>
-                                            </table>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -137,103 +98,17 @@
             </div>
         </section>
 
-        <!-- Modal-->
-        <div class="modal fade" id="detailModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="detailModalLabel">Detail of Master Book</h5>
-                        <button type="button" class="btn btn-sm close" data-dismiss="modal" aria-label="Close">
-                            <i aria-hidden="true" class="fa fa-times"></i>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div id="contentModal" data-scroll="true" data-height="350"></div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default font-weight-bold" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
 @endsection
-
-@push('styles')
-@endpush
-
-@push('scripts')
-@endpush
 
 @section('js')
 <script type="text/javascript">
     $(function() {
-        $('#book-table').DataTable({
-            destroy: true,
-        }).destroy();
-
-        $('#book-table').DataTable({
-            processing: true,
-            serverSide: true,
-            scrollX: false,
-            ajax: {
-                url:"{{ route('book.getdata') }}",
-                type:"GET",
-                data:{
-                    rangedate: $('#rangedate').val(),
-                }
-            },
-            columns: [
-                { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false},
-                { data: 'title', name: 'title'},
-                { data: 'author', name: 'author'},
-                { data: 'genre', name: 'genre'},
-                { data: 'vote_count', name: 'vote_count'},
-                { data: 'action', name: 'action', orderable: false, searchable: false }
-            ],
-            order: [1, "asc"],
-            columnDefs: [
-                {
-                    targets: [0, 5],
-                    className: 'text-center'
-                },
-                
-            ],
-            initComplete: function () {
-                this.api().columns().every(function () {
-                    var column = this;
-                    var input = document.createElement("input");
-                    $(input).appendTo($(column.footer()).empty())
-                    .on('change', function () {
-                        column.search($(this).val(), false, false, true).draw();
-                    });
-                });
-            }
-        });
+        
     });
 
     setTimeout(function() {
         $('.alert').delay(3000).slideUp(300);
     });
-
-    function showDetail(id){
-        $.ajax({
-            type: "POST",
-            url: "{{ route('book.show') }}",
-            data: "id=" + id,
-            dataType:'json',
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            success:function(data){				
-                $('#contentModal').html(data.html);
-                $('#detailModal').modal('show');
-            },
-            error: function(jqXHR, textStatus, errorThrown) { // if error occured
-                alert("Error occured. "+jqXHR.status+" "+ textStatus +" "+" please try again");
-            }
-        });
-    }
 
     function send(obj){
         form = $(obj).parents('form:first');
@@ -276,7 +151,11 @@
                         title: data.message
                     })
 
-                    setTimeout(function(){ window.location.replace("{{ route('book') }}"); }, 1000);
+                    $(".vehicle_no_field .fv-plugins-message-container").removeClass("text-danger");
+                    $(".vehicle_no_field .fv-plugins-message-container").addClass("text-success");
+                    $(".vehicle_no_field .fv-plugins-message-container").text(data.message);
+
+                    setTimeout(function(){ window.location.replace("{{ route('check-in') }}"); }, 1000);
 
                 }
                 else{
@@ -284,6 +163,10 @@
                         icon: 'error',
                         title: data.message
                     })
+                    
+                    $(".vehicle_no_field .fv-plugins-message-container").removeClass("text-success");
+                    $(".vehicle_no_field .fv-plugins-message-container").addClass("text-danger");
+                    $(".vehicle_no_field .fv-plugins-message-container").text(data.message);
                     $('#body-app').waitMe("hide");
                 }
             },

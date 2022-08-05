@@ -21,6 +21,8 @@ return [
     'users'                         => 'Users',
     'roles'                         => 'Roles',
     'permissions'                   => 'Permissions',
-    'masterbooks'                   => 'Master Books',
+    'reports'                       => 'Reports',
+    'check-in'                      => 'Check In',
+    'check-out'                     => 'Check Out',
 
 ];

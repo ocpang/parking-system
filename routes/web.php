@@ -13,27 +13,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     // return view('welcome');
-//     return redirect('login');
-// });
+Route::get('/', function () {
+    // return view('welcome');
+    return redirect('login');
+});
 
 Auth::routes(['verify' => true]);
-Auth::routes(['register' => false]);
 
 Route::post('login', 'Auth\LoginController@authenticate');
 Route::post('verify', 'Auth\LoginController@emailVerify')->name('email-verify');
-Route::get('/', 'FinderController@index')->name('finder');//->middleware(['role:admin']);
-Route::get('finder/search', 'FinderController@search')->name('finder.search');//->middleware(['role:admin']);
-Route::get('finder/vote', 'FinderController@vote')->name('finder.vote');//->middleware(['role:admin']);
 
 // Route::get('/home', function() {
 //     return view('home');
 // })->name('home')->middleware('auth');
 Route::group(['middleware' => ['auth']], function () { //  'verified',
     Route::get('/home', 'HomeController@index')->name('home');//->middleware(['role:admin']);
-    Route::get('reload', 'HomeController@reload')->name('reload');//->middleware(['role:admin']);
-    Route::get('reload-status', 'HomeController@reloadStatus')->name('reload_status');//->middleware(['role:admin']);
     
     // Role Menu
     Route::get('role', 'RolesController@index')->name('role');
@@ -56,12 +50,19 @@ Route::group(['middleware' => ['auth']], function () { //  'verified',
     Route::get('user/change-password', 'UsersController@changePassword')->name('user.change_password');
     Route::post('user/save-password/{id?}', 'UsersController@savePassword')->name('user.save_password');
 
-    // Book Menu
-    Route::get('book', 'BooksController@index')->name('book');
-    Route::get('get-book-data', 'BooksController@getData')->name('book.getdata');
-    Route::post('get-book-detail', 'BooksController@show')->name('book.show');
-    Route::get('book/edit/{id?}', 'BooksController@edit')->name('book.edit');
-    Route::post('book/save/{id?}', 'BooksController@save')->name('book.save');
-    Route::get('book/delete/{id?}', 'BooksController@destroy')->name('book.delete');
+    // Check In Transaction Menu
+    Route::get('check-in', 'TransactionsController@checkin')->name('check-in');
+    Route::post('check-in/save/{id?}', 'TransactionsController@save')->name('check-in.save');
+    
+    // Check Out Transaction Menu
+    Route::get('check-out', 'TransactionsController@checkout')->name('check-out');
+    Route::post('check-out/check', 'TransactionsController@check')->name('check-out.check');
+    Route::post('check-out/save/{id?}', 'TransactionsController@save')->name('check-out.save');
+    
+    // Report Transaction Menu
+    Route::get('reports', 'TransactionsController@index')->name('transaction');
+    Route::get('get-transaction-data', 'TransactionsController@getData')->name('transaction.getdata');
+    Route::post('get-transaction-detail', 'TransactionsController@show')->name('transaction.show');
+    Route::post('reports/export_excel', 'TransactionsController@export_excel')->name('transaction.export_excel');
 
 });

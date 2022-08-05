@@ -18,6 +18,11 @@
 
     @if(Auth::user())
     <style>
+        @if(auth()->user()->hasRole('operator'))
+            .view-admin-menu {
+                display: none;
+            }
+        @endif
     </style>
     @endif
 @stop
