@@ -21,7 +21,7 @@ class TransactionExport implements FromView
         $query = Transaction::select('transactions.*', 'users.name as user_name', 'up.name as up_user_name')
                         ->join('users','users.id','=','transactions.user_created')
                         ->leftJoin('users as up','up.id','=','transactions.user_updated')
-                        ->orderBy('transactions.created_at','desc');
+                        ->orderBy('transactions.created_at','asc');
 
         if($this->start_date != "" && $this->end_date != ""){
             $query = $query->whereBetween('transactions.created_at', [$this->start_date, $this->end_date]);

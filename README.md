@@ -19,8 +19,8 @@ Octavian Panggestu
 MySQL
 
 ## User Login :
-admin@admin.com \n
-admin123
+admin@admin.com | admin123 <br />
+operator_satu@admin.com | admin123
 
 ## Template :
 AdminLTE 3
